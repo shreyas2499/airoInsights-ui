@@ -1,0 +1,6 @@
+/* CSS */
+.Card:hover {
+    box-shadow: #c1c9c4 10px 0px 10px 0px;
+    transform: scale(1.1);
+}
+  

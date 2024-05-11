@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Input from '../../components/Input/Input';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import fetchAirportObjectsFromAPI, { fetchDelaysAndPricesPredictions } from '../../api';
 import NavBar from '../../components/Navbar/navbar';
 import MyCalendar from '../../components/Calendar/Calendar';
 import CustomSlider from '../../components/Slider/Slider';
 import CheckboxList from '../../components/CheckBoxes/CheckBoxes';
+import CheapestFlight from '../../components/CheapestFlight/CheapestFlight';
 import { Card, CardBody, CardText, Button } from 'reactstrap'
-import Spirit from "../../assets/Spirit Airlines Inc..png"
 import AirlinesList from '../../components/AirlinesList/AirlinesList';
 
 const Home = () => {  
@@ -98,7 +97,10 @@ const Home = () => {
       return {
         airline: delayItem.airline,
         delay: delayItem.delay,
-        price: priceItem ? priceItem.price : null
+        price: priceItem ? priceItem.price : null,
+        cancellation_rate: priceItem ? priceItem.cancellation_rate : null,
+        diversion_rate: priceItem ? priceItem.diversion_rate : null,
+        search_week: priceItem ? priceItem.search_week : null,
       };
     });
 
@@ -117,10 +119,12 @@ const Home = () => {
       airline: item.airline,
       delay: item.delay,
       price: item.price,
+      cancellation_rate: item.cancellation_rate,
+      diversion_rate: item.diversion_rate, 
+      search_week: item.search_week,
       sliderWeight: item.delay * delayWeight + (item.price || 0) * priceWeight
     }));
 
-    console.log(airlineObjects);
     setBestFlights(airlineObjects);
   }
 
@@ -155,7 +159,7 @@ const Home = () => {
     <div>
       <NavBar />
       {/* <div className='row'>
-        <h1>AiroInsights</h1>
+        <h1>AeroInsight</h1>
         <h3>Your one stop spot to get the best flight tickets!</h3>
       </div> */}
       <div
@@ -222,7 +226,10 @@ const Home = () => {
         </Card>
       </div>  
       {Object.keys(bestFlights).length !== 0 && (
-        <AirlinesList airlines={bestFlights} />
+        <div>
+          <CheapestFlight selectedDate={selectedDate} searchWeek={bestFlights} />
+          <AirlinesList airlines={bestFlights} />
+        </div>
       )}
     </div>
   );

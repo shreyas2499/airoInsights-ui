@@ -24,7 +24,7 @@ function NavBar(args) {
       <Navbar
     color="dark"
     dark {...args}>
-        <NavbarBrand href="/">AiroInsights</NavbarBrand>
+        <NavbarBrand href="/">AeroInsight</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
